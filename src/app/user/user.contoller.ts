@@ -123,7 +123,17 @@ const updateUser = async (req: Request, res: Response) => {
 const deleteSingleUser = async (req: Request, res: Response) => {
   try {
     const userId = parseInt(req.params.userId)
-   
+    const user = await userModel.findOne({ userId })
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: 'User not found!',
+        error: {
+          code: 404,
+          description: 'user not found',
+        },
+      })
+    }
     const deleteUser = await userService.deleteSpecipicUser(userId)
     res.status(200).json({
       success: true,
