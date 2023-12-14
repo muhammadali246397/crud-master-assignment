@@ -23,7 +23,7 @@ const UservalidationSchema = Joi.object({
     city: Joi.string().required(),
     country: Joi.string().required(),
   }).required(),
-  orders: Joi.array().items(orderValidationSchema),
+  orders: Joi.array().items(orderValidationSchema).optional(),
 })
 
-export default UservalidationSchema
+export {UservalidationSchema,orderValidationSchema}

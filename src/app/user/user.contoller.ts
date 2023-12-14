@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { userService } from './user.service'
-import UservalidationSchema from './user.validator'
+import {UservalidationSchema,orderValidationSchema} from './user.validator'
 import { userModel } from './user.model'
 
 const createUser = async (req: Request, res: Response) => {
@@ -150,37 +150,44 @@ const deleteSingleUser = async (req: Request, res: Response) => {
 }
 
 
-// const makeAOrder = async (req: Request, res: Response) => {
-//   try {
-//     const userId = parseInt(req.params.userId)
-//     const orderInfo = req.body
-//     const validUserData = orderValidationWithZod.parse(orderInfo)
-//     const user = await userServicesToController.getSingleUser(userId)
+const createAOrder = async (req: Request, res: Response) => {
+  try {
+    const userId = parseInt(req.params.userId)
+    const orderInformation = req.body
+    const { error } = orderValidationSchema.validate(orderInformation)
+    if (error) {
+      return res.status(500).json({
+        success: false,
+        message: 'joi validation error',
+        error,
+      })
+    }
+    const user = await userService.getSpecipicUser(userId)
 
-//     if (!user)
-//       return res.status(404).json({
-//         success: false,
-//         message: 'User not found',
-//         error: {
-//           code: 404,
-//           description: 'User not found!',
-//         },
-//       })
+    if (!user)
+      return res.status(404).json({
+        success: false,
+        message: 'User not found',
+        error: {
+          code: 404,
+          description: 'User not found!',
+        },
+      })
 
-//     await userServicesToController.makeOrder(userId, validUserData)
-//     res.status(201).json({
-//       success: true,
-//       message: 'Order created successfully!',
-//       data: null,
-//     })
-//   } catch (error) {
-//     res.status(500).json({
-//       success: false,
-//       message: 'Something went wrong!',
-//       error: error,
-//     })
-//   }
-// }
+    await userService.createOrder(userId, orderInformation)
+    res.status(201).json({
+      success: true,
+      message: 'Order created successfully!',
+      data: null,
+    })
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Something went wrong!',
+      error: error,
+    })
+  }
+}
 
 export const userContoller = {
   createUser,
@@ -188,4 +195,6 @@ export const userContoller = {
   getSpecificUser,
   updateUser,
   deleteSingleUser,
+  createAOrder,
+
 }

@@ -54,4 +54,5 @@ export const userService = {
   getSpecipicUser,
   updateSingleUser,
   deleteSpecipicUser,
+  createOrder,
 }
