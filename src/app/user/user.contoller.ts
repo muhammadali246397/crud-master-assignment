@@ -149,6 +149,39 @@ const deleteSingleUser = async (req: Request, res: Response) => {
   }
 }
 
+
+// const makeAOrder = async (req: Request, res: Response) => {
+//   try {
+//     const userId = parseInt(req.params.userId)
+//     const orderInfo = req.body
+//     const validUserData = orderValidationWithZod.parse(orderInfo)
+//     const user = await userServicesToController.getSingleUser(userId)
+
+//     if (!user)
+//       return res.status(404).json({
+//         success: false,
+//         message: 'User not found',
+//         error: {
+//           code: 404,
+//           description: 'User not found!',
+//         },
+//       })
+
+//     await userServicesToController.makeOrder(userId, validUserData)
+//     res.status(201).json({
+//       success: true,
+//       message: 'Order created successfully!',
+//       data: null,
+//     })
+//   } catch (error) {
+//     res.status(500).json({
+//       success: false,
+//       message: 'Something went wrong!',
+//       error: error,
+//     })
+//   }
+// }
+
 export const userContoller = {
   createUser,
   getAllUser,

@@ -9,8 +9,10 @@ ruter.get('/', userContoller.getAllUser)
 
 ruter.get('/:userId', userContoller.getSpecificUser)
 
+ruter.put('/:userId', userContoller.updateUser)
+
 ruter.delete('/:userId', userContoller.deleteSingleUser)
 
-ruter.put('/:userId', userContoller.updateUser)
+// router.put('/:userId/orders', userControllers.makeAOrder)
 
 export default ruter
