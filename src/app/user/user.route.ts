@@ -13,6 +13,6 @@ ruter.put('/:userId', userContoller.updateUser)
 
 ruter.delete('/:userId', userContoller.deleteSingleUser)
 
-// router.put('/:userId/orders', userControllers.makeAOrder)
+ruter.put('/:userId/orders', userContoller.createAOrder)
 
 export default ruter
