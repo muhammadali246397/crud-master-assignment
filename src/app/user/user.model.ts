@@ -25,8 +25,9 @@ const userSchema = new Schema<UserInfo>({
     street: { type: String, required: true },
     city: { type: String, required: true },
     country: { type: String, required: true },
-    orders: orederSchema,
+    
   },
+  orders:{type:[orederSchema]}
 })
 
 userSchema.pre('save', function (next) {
@@ -43,4 +44,9 @@ userSchema.set('toJSON', {
   },
 })
 
+
 export const userModel = model<UserInfo>('user', userSchema)
+
+
+
+

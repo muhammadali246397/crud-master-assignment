@@ -15,4 +15,6 @@ ruter.delete('/:userId', userContoller.deleteSingleUser)
 
 ruter.put('/:userId/orders', userContoller.createAOrder)
 
+ruter.get('/:userId/orders',userContoller.getOrders)
+
 export default ruter

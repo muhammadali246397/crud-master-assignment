@@ -41,11 +41,19 @@ const deleteSpecipicUser = async (userId: number) => {
 }
 
 const createOrder = async (userId: number, orderInformation: Order) => {
-  const order = await userModel.findOneAndUpdate(
+  console.log(orderInformation)
+  const orders = await userModel.findOneAndUpdate(
     { userId },
-    { $push: { orders: orderInformation } },
+    { $push: { orders: orderInformation} },
   )
-  return order
+  return orders
+}
+
+const getAllOrder = async (userId:number) => {
+  const result =await userModel.findOne({userId}).select({
+    _id:0,
+  })
+  return result
 }
 
 export const userService = {
@@ -55,4 +63,5 @@ export const userService = {
   updateSingleUser,
   deleteSpecipicUser,
   createOrder,
+  getAllOrder,
 }

@@ -28,8 +28,8 @@ const userSchema = new mongoose_1.Schema({
         street: { type: String, required: true },
         city: { type: String, required: true },
         country: { type: String, required: true },
-        orders: orederSchema,
     },
+    orders: { type: [orederSchema] }
 });
 userSchema.pre('save', function (next) {
     const hidePassword = bcrypt_1.default.hashSync(this.password, Number(config_1.default.bcrypt_salt_round));

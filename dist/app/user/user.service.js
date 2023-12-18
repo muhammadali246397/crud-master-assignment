@@ -41,10 +41,23 @@ const deleteSpecipicUser = (userId) => __awaiter(void 0, void 0, void 0, functio
     const specificUser = yield user_model_1.userModel.deleteOne({ userId });
     return specificUser;
 });
+const createOrder = (userId, orderInformation) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(orderInformation);
+    const orders = yield user_model_1.userModel.findOneAndUpdate({ userId }, { $push: { orders: orderInformation } });
+    return orders;
+});
+const getAllOrder = (userId) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield user_model_1.userModel.findOne({ userId }).select({
+        _id: 0,
+    });
+    return result;
+});
 exports.userService = {
     createUserIntoDB,
     getAllUsersFromDb,
     getSpecipicUser,
     updateSingleUser,
     deleteSpecipicUser,
+    createOrder,
+    getAllOrder,
 };
